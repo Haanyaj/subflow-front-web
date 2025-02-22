@@ -23,47 +23,29 @@ const BloomLanding = () => {
     }
   ];
 
-  const navLinks = [
-    "Comment ça marche",
-    "Avis",
-    "Fonctionnalités",
-    "FAQ"
-  ];
-
   return (
-    <div className="h-screen w-screen bg-pink-50 flex items-center justify-center overflow-hidden">
-      <div className="w-4/5 h-4/5 bg-white rounded-2xl shadow-xl relative overflow-hidden">
-        {/* Navigation */}
-        <nav className={`flex justify-between items-center p-6 transition-all duration-300 transform ${
+    <div className="h-screen w-screen bg-black flex items-center justify-center overflow-hidden">
+      <div className="w-4/5 h-4/5 bg-zinc-900 rounded-2xl shadow-2xl relative overflow-hidden border border-zinc-800">
+        {/* Logo */}
+        <div className={`absolute top-8 left-12 transition-all duration-300 transform ${
           isVisible ? 'translate-y-0 opacity-100' : '-translate-y-8 opacity-0'
         }`}>
-          <div className="text-2xl font-bold">SubFlow</div>
-          <div className="flex gap-6">
-            {navLinks.map((link, index) => (
-              <a 
-                key={index}
-                href="#" 
-                className="text-gray-600 hover:text-gray-900 transition-all duration-200 hover:bg-pink-50 px-4 py-2 rounded-full"
-              >
-                {link}
-              </a>
-            ))}
-            <button className="bg-black text-white px-6 py-2 rounded-full hover:bg-gray-800 transition-all duration-200">
-              Télécharger
-            </button>
+          <div className="flex items-center">
+            <span className="text-4xl font-bold tracking-tighter text-white">SubFlow</span>
+            <span className="text-4xl text-blue-500 ml-0.5">.</span>
           </div>
-        </nav>
+        </div>
 
         {/* Main Content */}
-        <div className="grid grid-cols-2 gap-8 px-12 py-8 h-[calc(100%-4rem)]">
+        <div className="grid grid-cols-2 gap-8 px-12 py-8 h-full">
           {/* Left Column */}
-          <div className="flex flex-col justify-center">
-            <h1 className={`text-5xl font-bold mb-6 transition-all duration-300 transform ${
+          <div className="flex flex-col justify-center pt-20">
+            <h1 className={`text-5xl font-bold mb-6 transition-all duration-300 transform text-white ${
               isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
             }`}>
               Comment ça marche
             </h1>
-            <p className={`text-lg text-gray-600 mb-12 transition-all duration-300 transform ${
+            <p className={`text-lg text-zinc-400 mb-12 transition-all duration-300 transform ${
               isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
             }`}>
               Gardez le contrôle de vos abonnements.<br />
@@ -74,13 +56,13 @@ const BloomLanding = () => {
               {sections.map((section, index) => (
                 <div 
                   key={index}
-                  className={`bg-white hover:bg-pink-50 p-4 rounded-2xl cursor-pointer transition-all duration-300
+                  className={`bg-zinc-900 hover:bg-zinc-800 p-4 rounded-2xl cursor-pointer transition-all duration-300 border border-zinc-800 hover:border-zinc-700
                     ${hoveredSection === index ? 'translate-x-2' : ''}`}
                   onMouseEnter={() => setHoveredSection(index)}
                   onMouseLeave={() => setHoveredSection(null)}
                 >
-                  <h3 className="text-lg font-semibold mb-2">{section.title}</h3>
-                  <p className="text-gray-600">{section.desc}</p>
+                  <h3 className="text-lg font-semibold mb-2 text-white">{section.title}</h3>
+                  <p className="text-zinc-400">{section.desc}</p>
                 </div>
               ))}
             </div>
@@ -92,7 +74,7 @@ const BloomLanding = () => {
               {[0, 1, 2].map((index) => (
                 <div
                   key={index}
-                  className="absolute transition-all duration-500 ease-in-out rounded-3xl shadow-2xl w-[270px] h-[584px] overflow-hidden"
+                  className="absolute transition-all duration-500 ease-in-out rounded-3xl w-[270px] h-[584px] overflow-hidden border border-zinc-800"
                   style={{ 
                     left: `${index * 40}px`,
                     top: '0',
