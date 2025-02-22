@@ -127,7 +127,7 @@ const BloomLanding = () => {
                   }}
                 >
                   <img 
-                    src={`/assets/images/screen${index + 1}.jpeg`}
+                    src={`/assets/images/screen${index + 1}.png`}
                     alt={`Screen ${index + 1}`}
                     className="w-full h-full object-cover"
                   />
