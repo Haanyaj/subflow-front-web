@@ -30,8 +30,8 @@ const BloomLanding = memo(() => {
   ];
 
   return (
-    <div className="h-screen w-full bg-black flex items-center justify-center p-4 sm:p-6 lg:p-8">
-      <div className="w-full max-w-7xl h-full bg-zinc-900 rounded-2xl shadow-2xl relative overflow-hidden border border-zinc-800 flex flex-col">
+    <div className="min-h-screen w-full bg-black flex items-center justify-center p-4 sm:p-6 lg:p-8 overflow-auto">
+      <div className="w-full max-w-xxl min-h-[900px] max-h-[90vh] bg-zinc-900 rounded-2xl shadow-2xl relative overflow-hidden border border-zinc-800 flex flex-col">
         {/* Logo */}
         <header className="absolute top-4 left-4 sm:top-6 sm:left-6 lg:top-8 lg:left-8 z-10">
           <div
@@ -54,7 +54,7 @@ const BloomLanding = memo(() => {
         <main className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 px-6 sm:px-8 lg:px-16 py-10 sm:py-12 lg:py-14 flex-1 overflow-hidden items-center">
           {/* Left Column */}
           <section className="flex flex-col justify-center">
-            <br></br>
+          <br></br><br></br>
             <p
               className={`text-base sm:text-lg lg:text-xl text-zinc-400 mb-6 sm:mb-8 transition-all duration-300 transform ${
                 isVisible
@@ -111,7 +111,7 @@ const BloomLanding = memo(() => {
             </div>
 
             {/* Sections List */}
-            <div className="space-y-3 sm:space-y-4 flex-1 max-h-[45vh] lg:max-h-[55vh] overflow-hidden">
+            <div className="space-y-3 sm:space-y-4 flex-1  lg:max-h-[55vh]">
               {sections.map((section, index) => (
                 <article
                   key={section.id}
@@ -192,6 +192,6 @@ const BloomLanding = memo(() => {
   );
 });
 
-BloomLanding.displayName = "BloomLanding";
+BloomLanding.displayName = "SubFlow";
 
 export default BloomLanding;
