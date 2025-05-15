@@ -87,7 +87,7 @@ const BloomLanding = memo(() => {
             </p>
 
             {/* App Store Section */}
-            <div className="w-full max-w-xs pb-5">
+            <div className="w-full flex flex-col sm:flex-row gap-3 pb-5">
               <a
                 href="https://apps.apple.com/fr/app/subflow/id6741497228"
                 target="_blank"
@@ -112,6 +112,47 @@ const BloomLanding = memo(() => {
                 <div className="flex-grow">
                   <p className="text-zinc-300 text-sm">Disponible sur</p>
                   <p className="text-white font-semibold">App Store</p>
+                </div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="text-zinc-400 hover:text-white transition-colors"
+                >
+                  <path d="M5 18l6-6-6-6" />
+                </svg>
+              </a>
+              
+              <a
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block border border-zinc-700 rounded-lg p-2 
+      bg-zinc-800/90 
+      flex items-center gap-2
+      transition-transform duration-200 
+      hover:bg-zinc-700 hover:border-zinc-600 
+      hover:shadow-md hover:shadow-blue-900/20
+      hover:scale-[1.01] transform-gpu"
+                aria-label="Télécharger SubFlow sur Google Play"
+              >
+                <div className="bg-white rounded-lg p-3">
+                  <img
+                    src="/assets/images/google-play-icon.png"
+                    alt="Google Play"
+                    className="w-10 h-10 object-contain"
+                    loading="eager"
+                  />
+                </div>
+                <div className="flex-grow">
+                  <p className="text-zinc-300 text-sm">Disponible sur</p>
+                  <p className="text-white font-semibold">Android</p>
                 </div>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
