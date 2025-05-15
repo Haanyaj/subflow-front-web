@@ -1,4 +1,4 @@
-import React, { useState, useEffect, memo, useCallback } from "react";
+import { useState, useEffect, memo, useCallback } from "react";
 
 const BloomLanding = memo(() => {
   const [isVisible, setIsVisible] = useState(false);
@@ -133,7 +133,7 @@ const BloomLanding = memo(() => {
                 </a>
                 
                 <a
-                  href="#"
+                  href="https://play.google.com/store/apps/details?id=com.jessal.subflow"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block border border-zinc-700 rounded-lg p-2 
