@@ -55,7 +55,7 @@
   background-repeat: repeat;
   transform: translateZ(0);
   will-change: transform;
-  animation: stars-move-small 100s linear infinite;
+  animation: stars-move-small 280s linear infinite;
 }
 
 /* Deuxième masque d'étoiles - pattern aléatoire moyen */
@@ -95,7 +95,7 @@
   background-repeat: repeat;
   transform: translateZ(0);
   will-change: transform;
-  animation: stars-move-medium 120s linear infinite;
+  animation: stars-move-medium 320s linear infinite;
 }
 
 /* Troisième masque d'étoiles - grosses étoiles aléatoires */
@@ -133,7 +133,7 @@
   background-repeat: repeat;
   transform: translateZ(0);
   will-change: transform;
-  animation: stars-move-large 150s linear infinite;
+  animation: stars-move-large 360s linear infinite;
 }
 
 /* Animations optimisées */

@@ -1,4 +1,4 @@
-import BloomLanding from './components/Bloomlanding'
+import BloomLanding from './components/BloomLanding'
 
 function App() {
   return <BloomLanding />;
