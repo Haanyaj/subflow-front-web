@@ -1,11 +1,20 @@
-import React, { useState, useEffect, memo } from "react";
+import React, { useState, useEffect, memo, useCallback } from "react";
 
 const BloomLanding = memo(() => {
   const [isVisible, setIsVisible] = useState(false);
-  const [hoveredSection, setHoveredSection] = useState(null);
+  const [hoveredSection, setHoveredSection] = useState<number | null>(null);
 
   useEffect(() => {
-    setIsVisible(true);
+    // Déclenchement différé de l'animation d'entrée pour améliorer le chargement initial
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleSectionHover = useCallback((index: number | null) => {
+    setHoveredSection(index);
   }, []);
 
   const sections = [
@@ -13,29 +22,39 @@ const BloomLanding = memo(() => {
       id: "visualize",
       title: "Visualisez vos dépenses",
       description:
-        "Accédez à une vue d’ensemble claire de vos abonnements. SubFlow regroupe toutes vos dépenses mensuelles au même endroit.",
+        "Accédez à une vue d'ensemble claire de vos abonnements. SubFlow regroupe toutes vos dépenses mensuelles au même endroit.",
     },
     {
       id: "analyze",
       title: "Analysez vos habitudes",
       description:
-        "Profitez de graphiques intuitifs pour comprendre vos dépenses. Identifiez les tendances et les opportunités d’optimisation.",
+        "Profitez de graphiques intuitifs pour comprendre vos dépenses. Identifiez les tendances et les opportunités d'optimisation.",
     },
     {
       id: "track",
       title: "Suivez votre budget",
       description:
-        "Gardez un œil sur l’évolution de vos dépenses mois après mois. SubFlow vous aide à maintenir vos objectifs financiers.",
+        "Gardez un œil sur l'évolution de vos dépenses mois après mois. SubFlow vous aide à maintenir vos objectifs financiers.",
     },
   ];
 
+  // Pre-calcule des éléments qui ne changent pas entre les rendus
+  const hasHoveredSection = hoveredSection !== null;
+
   return (
-    <div className="min-h-screen w-full bg-black flex items-center justify-center p-4 sm:p-6 lg:p-8 overflow-auto">
-      <div className="w-full max-w-xxl min-h-[900px] max-h-[90vh] bg-zinc-900 rounded-2xl shadow-2xl relative overflow-hidden border border-zinc-800 flex flex-col">
+    <div className="min-h-screen w-full bg-transparent flex items-center justify-center p-4 sm:p-6 lg:p-8 overflow-auto relative">
+      {/* Effet d'étoiles avec 3 couches pour la profondeur */}
+      <div className="starry-sky">
+        <div className="stars stars-small"></div>
+        <div className="stars stars-medium"></div>
+        <div className="stars stars-large"></div>
+      </div>
+      
+      <div className="w-full max-w-xxl min-h-[900px] max-h-[90vh] bg-zinc-900/60 backdrop-blur-[2px] rounded-2xl shadow-2xl relative overflow-hidden border border-zinc-800/80 flex flex-col z-10 transform-gpu">
         {/* Logo */}
         <header className="absolute top-4 left-4 sm:top-6 sm:left-6 lg:top-8 lg:left-8 z-10">
           <div
-            className={`flex items-center transition-all duration-300 transform ${
+            className={`flex items-center transition-all duration-300 transform-gpu ${
               isVisible
                 ? "translate-y-0 opacity-100"
                 : "-translate-y-8 opacity-0"
@@ -56,7 +75,7 @@ const BloomLanding = memo(() => {
           <section className="flex flex-col justify-center">
           <br></br><br></br>
             <p
-              className={`text-base sm:text-lg lg:text-xl text-zinc-400 mb-6 sm:mb-8 transition-all duration-300 transform ${
+              className={`text-base sm:text-lg lg:text-xl text-zinc-300 mb-6 sm:mb-8 transition-all duration-300 transform-gpu ${
                 isVisible
                   ? "translate-y-0 opacity-100"
                   : "translate-y-8 opacity-0"
@@ -74,12 +93,12 @@ const BloomLanding = memo(() => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block border border-zinc-700 rounded-lg p-2 
-      bg-zinc-800 
+      bg-zinc-800/90 
       flex items-center gap-2
-      transition-all duration-300 
-      hover:bg-zinc-750 hover:border-zinc-600 
-      hover:shadow-md 
-      hover:scale-[1.01]"
+      transition-transform duration-200 
+      hover:bg-zinc-700 hover:border-zinc-600 
+      hover:shadow-md hover:shadow-blue-900/20
+      hover:scale-[1.01] transform-gpu"
                 aria-label="Télécharger SubFlow sur l'App Store"
               >
                 <div className="bg-white rounded-lg p-3">
@@ -87,6 +106,7 @@ const BloomLanding = memo(() => {
                     src="/assets/images/Logo_App_Store_d'Apple.png"
                     alt="App Store"
                     className="w-10 h-10 object-contain"
+                    loading="eager"
                   />
                 </div>
                 <div className="flex-grow">
@@ -111,15 +131,15 @@ const BloomLanding = memo(() => {
             </div>
 
             {/* Sections List */}
-            <div className="space-y-3 sm:space-y-4 flex-1  lg:max-h-[55vh]">
+            <div className="space-y-3 sm:space-y-4 flex-1 lg:max-h-[55vh]">
               {sections.map((section, index) => (
                 <article
                   key={section.id}
-                  className={`bg-zinc-900 p-4 sm:p-5 rounded-xl cursor-pointer transition-all duration-300 border border-zinc-800 hover:bg-zinc-800 hover:border-zinc-700 ${
+                  className={`bg-zinc-900/80 p-4 sm:p-5 rounded-xl cursor-pointer transition-transform duration-200 border border-zinc-800/80 hover:bg-zinc-800/90 hover:border-zinc-700/90 hover:shadow-lg hover:shadow-blue-900/10 transform-gpu ${
                     hoveredSection === index ? "translate-x-2" : ""
                   }`}
-                  onMouseEnter={() => setHoveredSection(index)}
-                  onMouseLeave={() => setHoveredSection(null)}
+                  onMouseEnter={() => handleSectionHover(index)}
+                  onMouseLeave={() => handleSectionHover(null)}
                   role="button"
                   tabIndex={0}
                   aria-label={section.title}
@@ -127,7 +147,7 @@ const BloomLanding = memo(() => {
                   <h3 className="text-sm sm:text-base lg:text-lg font-semibold mb-2 text-white">
                     {section.title}
                   </h3>
-                  <p className="text-zinc-400 text-xs sm:text-sm lg:text-base leading-relaxed line-clamp-2">
+                  <p className="text-zinc-300 text-xs sm:text-sm lg:text-base leading-relaxed line-clamp-2">
                     {section.description}
                   </p>
                 </article>
@@ -138,55 +158,57 @@ const BloomLanding = memo(() => {
           {/* Right Column - Phone Mockups */}
           <section className="relative flex items-center justify-center h-[45vh] sm:h-[55vh] lg:h-full">
             <div className="relative w-full max-w-[300px] sm:max-w-[350px] lg:max-w-[400px] h-full flex items-center justify-center overflow-visible">
-              {sections.map((_, index) => (
-                <div
-                  key={index}
-                  className="absolute rounded-2xl w-[200px] sm:w-[240px] lg:w-[280px] h-[400px] sm:h-[480px] lg:h-[560px] overflow-hidden border border-zinc-800 shadow-lg"
-                  style={{
-                    left: `${index * 50}px`,
-                    top: 0,
-                    zIndex:
-                      hoveredSection === null
-                        ? 30 - index
-                        : hoveredSection === index
-                        ? 30
-                        : 20 - index,
-                    transform: `
-                      ${
-                        hoveredSection === null
-                          ? `translateX(${
-                              index * 25
-                            }px) translateY(${15}px) rotate(${index * 15}deg)`
-                          : hoveredSection <= index
-                          ? `translateX(${
-                              (index - hoveredSection) * 10
-                            }px) translateY(${
-                              (index - hoveredSection) * 15
-                            }px) rotate(${(index - hoveredSection) * 5}deg)`
-                          : "translateX(-200px)"
-                      }
-                      ${hoveredSection === index ? "scale(1.05)" : "scale(1)"}
-                    `,
-                    opacity:
-                      hoveredSection === null
-                        ? 1
-                        : hoveredSection > index
-                        ? 0
-                        : 1 - (index - hoveredSection) * 0.3,
-                    transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
-                  }}
-                >
-                  <img
-                    src={`/assets/images/screen${index + 1}.png`}
-                    alt={`Aperçu de l'écran ${index + 1} de SubFlow`}
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                  />
-                </div>
-              ))}
+              {sections.map((_, index) => {
+                const isHovered = hoveredSection === index;
+                const baseZIndex = hasHoveredSection
+                  ? (isHovered ? 30 : 20 - index)
+                  : 30 - index;
+                
+                let transform = "";
+                if (!hasHoveredSection) {
+                  transform = `translate3d(${index * 25}px, ${15}px, 0) rotate(${index * 15}deg)`;
+                } else if (hoveredSection <= index) {
+                  transform = `translate3d(${(index - hoveredSection) * 10}px, ${(index - hoveredSection) * 15}px, 0) rotate(${(index - hoveredSection) * 5}deg)`;
+                } else {
+                  transform = "translate3d(-200px, 0, 0)";
+                }
+                
+                transform += isHovered ? " scale(1.05)" : " scale(1)";
+                
+                const opacity = !hasHoveredSection
+                  ? 1
+                  : hoveredSection > index
+                    ? 0
+                    : 1 - (index - hoveredSection) * 0.3;
+                
+                return (
+                  <div
+                    key={index}
+                    className="absolute rounded-2xl w-[200px] sm:w-[240px] lg:w-[280px] h-[400px] sm:h-[480px] lg:h-[560px] overflow-hidden border border-zinc-800 shadow-lg will-change-transform"
+                    style={{
+                      left: `${index * 50}px`,
+                      top: 0,
+                      zIndex: baseZIndex,
+                      transform,
+                      opacity,
+                      transition: "transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+                      boxShadow: isHovered ? '0 0 15px rgba(59, 130, 246, 0.3)' : 'none',
+                    }}
+                  >
+                    <img
+                      src={`/assets/images/screen${index + 1}.png`}
+                      alt={`Aperçu de l'écran ${index + 1} de SubFlow`}
+                      className="w-full h-full object-cover"
+                      loading={index === 0 ? "eager" : "lazy"}
+                    />
+                  </div>
+                );
+              })}
             </div>
           </section>
         </main>
+
+        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-blue-500/20 to-transparent"></div>
       </div>
     </div>
   );
